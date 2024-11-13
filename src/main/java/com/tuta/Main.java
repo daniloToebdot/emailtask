@@ -6,6 +6,10 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
+        if(args.length != 1){
+            System.out.println("Please provide only one argument, the full path of the directory with e-mails to inspect");
+            System.out.println("Follow the README.MD example.");
+        }
         List<Email> emails;
 
         try {
@@ -15,15 +19,9 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        for (Email email : emails) {
-
-        }
-
-
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        List<Email> verifiedEmails = SpamDetection.verifyEmailsForSpam(emails);
+        for (Email email : verifiedEmails) {
+            System.out.println(email.toString());
         }
     }
 }

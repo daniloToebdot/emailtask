@@ -18,15 +18,15 @@ public class SpamDetection {
             Email first = emails.get(i);
             if(verifiedEmails.containsKey(first.getTitle())){
                 continue;
-            }
-            boolean firstDetectedAsSpam = false;
-            for (int j = i + 1; j < emails.size(); j++) {
-                Email second = emails.get(j);
-                double distance = getNormalizedLevenshteinDistance(emails.get(i), emails.get(j));
-                if(distance <= CUTOFF_DISTANCE){
-                    firstDetectedAsSpam = true;
+                }
+                boolean firstDetectedAsSpam = false;
+                for (int j = i + 1; j < emails.size(); j++) {
+                    Email second = emails.get(j);
+                    double distance = getNormalizedLevenshteinDistance(emails.get(i), emails.get(j));
+                    if(distance <= CUTOFF_DISTANCE){
+                        firstDetectedAsSpam = true;
 
-                    verifiedEmails.put(second.getTitle(), new Email(second, true));
+                        verifiedEmails.put(second.getTitle(), new Email(second, true));
                 }
             }
 
