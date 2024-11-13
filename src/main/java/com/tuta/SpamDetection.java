@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class SpamDetection {
 
     private static final double CUTOFF_DISTANCE = 0.2;
