@@ -31,8 +31,6 @@ public class Email {
         return this.isSpamEmail;
     }
 
-
-
     @Override
     public String toString() {
         if(isSpamEmail == null){
