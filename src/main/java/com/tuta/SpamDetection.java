@@ -15,14 +15,10 @@ public class SpamDetection {
     public static List<Email> verifyEmailsForSpam(List<Email> emails) {
         Map<String, Email> verifiedEmails = new HashMap<>();
         for (int i = 0; i < emails.size(); i++) {
+
             Email current = emails.get(i);
-
-            boolean isEmailAlreadyVerified = verifiedEmails.containsKey(current.getTitle());
-            if(isEmailAlreadyVerified){
-                continue;
-            }
-
             boolean firstDetectedAsSpam = false;
+
             for (int j = i + 1; j < emails.size(); j++) {
                 Email comparisonEmail = emails.get(j);
                 double distance = getNormalizedLevenshteinDistance(current, comparisonEmail);
@@ -33,7 +29,10 @@ public class SpamDetection {
                 }
             }
 
-            verifiedEmails.put(current.getTitle(), new Email(current, firstDetectedAsSpam));
+            boolean isEmailAlreadyVerified = verifiedEmails.containsKey(current.getTitle());
+            if(!isEmailAlreadyVerified) {
+                verifiedEmails.put(current.getTitle(), new Email(current, firstDetectedAsSpam));
+            }
         }
 
         return new ArrayList<>(verifiedEmails.values());
