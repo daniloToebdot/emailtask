@@ -81,4 +81,23 @@ public class SpamDetectionTest {
         assertEquals(3, spamCount);
         assertEquals(2, nonSpamCount);
     }
+
+    @Test
+    public void testEmailOrderDoesNotInfluenceResults() {
+        List<Email> emails = Arrays.asList(
+                new Email("a b c d e f g h i j k l m n o p q r s t u v 1 2 3", "similar to second"),
+                new Email("9 8 7 a b c d e f g h i j k l m n o p q r s t u v 1 2 3", "similar to first and third"),
+                new Email("9 8 7 a b c d e f g h i j k l m n o p q r s t u v", "similar to second but not first"),
+                new Email("it is a completely unique email body", "title four"),
+                new Email("this is also not marked as spam", "title five")
+        );
+
+        List<Email> result = SpamDetection.verifyEmailsForSpam(emails);
+
+        long spamCount = result.stream().filter(email -> Boolean.TRUE.equals(email.isSpam())).count();
+        long nonSpamCount = result.stream().filter(email -> Boolean.FALSE.equals(email.isSpam())).count();
+
+        assertEquals(3, spamCount);
+        assertEquals(2, nonSpamCount);
+    }
 }
